@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #333;
+        }
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container form p {
+            margin-bottom: 16px;
+        }
+        .form-container button {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498DB;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #5DADE2;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="password"],
+        .form-container input[type="email"] {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .already-account {
+            text-align: center;
+            margin-top: 20px; /* Adjust spacing as needed */
+        }
+        .already-account a {
+            color: #3498DB; /* Match signup button color */
+            text-decoration: none; /* Remove underline */
+        }
+
+        /* New styling for error message */
+        .error {
+            color: red; /* Change to desired error color */
+            text-align: center; /* Center the error message */
+            font-weight: bold; /* Make the error message stand out */
+            margin-top: 10px; /* Add spacing above the error message */
+        }
+
+        /* Styling for the back anchor tag */
+        .back-link {
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .back-link a {
+            color: #3498DB; /* Match signup button color */
+            text-decoration: none; /* Remove underline */
+        }
+    </style>
+</head>
+<body>
+
+<div class="formclass">
+    <div class="form-container">
+        <h1>Sign Up</h1>
+
+       
+
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <h3 class="error">{{ error }}</h3>
+            <p class="back-link"><a href="/signup/">Go Back</a></p>
+        <div class="already-account">
+            Already have an account? <a href="/login/">Log In</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

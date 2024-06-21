@@ -1,0 +1,120 @@
+{% extends 'ui/layout.html' %}
+
+{% block content %}
+<style>
+  .intro {
+    text-align: center;
+    padding: 100px 0;
+    background: url('https://cdn.prod.website-files.com/64e27cdd42db7ecf119d5e61/6619bddec0ae5a57c213e55a_cta-photographers%402x.webp') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    position: relative;
+  }
+
+  .intro::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Dark overlay for readability */
+    z-index: 1;
+  }
+
+  .intro h2,
+  .intro p,
+  .cta-button {
+    position: relative;
+    z-index: 2;
+  }
+
+  .intro h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .intro p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #4CAF50;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  .cta-button:hover {
+    background-color: #45a049;
+  }
+
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 40px 0;
+  }
+
+  .feature {
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 30%;
+    max-width: 30%;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .feature:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .feature h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+  .feature p {
+    font-size: 1em;
+    line-height: 1.6;
+  }
+</style>
+
+<div class="intro">
+  <h2>Welcome to Speech-to-Text Converter</h2>
+  <p>Experience the most accurate and efficient speech-to-text conversion tool. Whether you're a professional, student, or anyone who needs to convert spoken words into written text, our platform provides an easy-to-use solution tailored to meet your needs.</p>
+  <a href="signup/" class="cta-button">Start for free</a>
+</div>
+
+<div class="container">
+  <div class="features">
+    <div class="feature">
+      <h3>High Accuracy</h3>
+      <p>Our advanced algorithms ensure that your spoken words are transcribed with the highest accuracy, minimizing errors and saving you time.</p>
+    </div>
+    <div class="feature">
+      <h3>Fast Processing</h3>
+      <p>Get your transcriptions done quickly without compromising on quality. Our system is designed to handle even the most complex audio files swiftly.</p>
+    </div>
+    <div class="feature">
+      <h3>Easy to Use</h3>
+      <p>With a user-friendly interface, converting speech to text is as simple as uploading your audio file and letting our tool do the rest.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
