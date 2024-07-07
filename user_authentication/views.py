@@ -58,7 +58,7 @@ def login(request):
                 context = {
                     "user": user
                 }
-                return render(request, 'auth/userpage.html', context=context)
+                return redirect('user', username=user)
             else:
                 return render(request, 'auth/invalid.html')
 
@@ -67,9 +67,11 @@ def login(request):
     context = {}
     return render(request, 'auth/loginpage.html', context=context)
 
-def user(request):
+def user(request, username):
     context = {
         'user': user,
+        'username':username,
     }
     print(f"frome userpage: {user}")
     return render(request, 'auth/userpage.html', context=context)
+
