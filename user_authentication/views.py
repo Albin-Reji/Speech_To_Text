@@ -75,3 +75,4 @@ def user(request, username):
     print(f"frome userpage: {user}")
     return render(request, 'auth/userpage.html', context=context)
 
+
