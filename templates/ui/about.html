@@ -1,0 +1,109 @@
+{% extends 'ui/layout.html' %}
+
+{% block content %}
+<style>
+  .about-header {
+    text-align: center;
+    padding: 60px 0;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+
+  .about-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .about-header p {
+    font-size: 1.2em;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .team-section {
+    padding: 60px 0;
+    background-color: #fff;
+  }
+
+  .team-section h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 40px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .team-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .team-member {
+    background-color: #f8f9fa;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 30%;
+    max-width: 30%;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .team-member img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+
+  .team-member h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .team-member p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+  }
+</style>
+
+<div class="about-header">
+  <h1>About Us</h1>
+  <p>Learn more about our team and the mission that drives us. We are dedicated to providing the best speech-to-text conversion tools available, ensuring high accuracy, fast processing, and ease of use for all our users.</p>
+</div>
+
+<div class="team-section">
+  <h2>Meet Our Team</h2>
+  <div class="team-container">
+    <div class="team-member">
+      <img src="https://via.placeholder.com/150" alt="Team Member Photo">
+      <h3>Achal M Jain</h3>
+    </div>
+    <div class="team-member">
+      <img src="https://via.placeholder.com/150" alt="Team Member Photo">
+      <h3>Adithya Kamath</h3>
+    </div>
+    <div class="team-member">
+      <img src="https://via.placeholder.com/150" alt="Team Member Photo">
+      <h3>Ashay K A</h3>
+    </div>
+    <div class="team-member">
+      <img src="https://via.placeholder.com/150" alt="Team Member Photo">
+      <h3>Albin Reji</h3>
+    </div>
+  </div>
+</div>
+{% endblock %}

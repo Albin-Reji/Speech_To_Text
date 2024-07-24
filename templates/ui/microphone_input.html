@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Speech to Text</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    #result {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 10px;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .btn-custom {
+      margin: 5px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mb-4">Speech to Text</h1>
+    <form id="speechForm" method="post" action="{% url 'microphone_input' username %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <textarea id="result" name="result" class="form-control" placeholder="Speak into the mic..."></textarea>
+      </div>
+      <div class="form-group">
+        <button id="start" type="button" class="btn btn-primary btn-custom">Start</button>
+        <button id="stop" type="button" class="btn btn-danger btn-custom">Stop</button>
+        <button id="submit" type="submit" class="btn btn-success btn-custom">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+    // Check for browser support
+    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Speech Recognition API not supported in this browser.');
+      throw new Error('Speech Recognition API not supported.');
+    }
+
+    var recognition = new SpeechRecognition();
+    recognition.lang = 'en-US'; // Change to your preferred language
+    recognition.interimResults = true;
+    recognition.continuous = true;
+
+    var startButton = document.getElementById('start');
+    var stopButton = document.getElementById('stop');
+    var resultElement = document.getElementById('result');
+    var form = document.getElementById('speechForm');
+    var saveInterval;
+    var allResults = ''; // Variable to store all speech data
+
+    // Function to send textarea data to the server
+    function saveData() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '{% url "microphone_input" username %}', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          console.log('Data saved successfully');
+        } else {
+          console.error('Error saving data:', xhr.status, xhr.statusText);
+        }
+      };
+      xhr.send('result=' + encodeURIComponent(allResults));
+    }
+
+    // Start the speech recognition process
+    startButton.addEventListener('click', () => {
+      console.log('Starting speech recognition...');
+      recognition.start();
+      // Start saving data every 5 seconds (adjust as needed)
+      saveInterval = setInterval(saveData, 5000);
+    });
+
+    // Stop the speech recognition process
+    stopButton.addEventListener('click', () => {
+      console.log('Stopping speech recognition...');
+      recognition.stop();
+      // Stop saving data
+      clearInterval(saveInterval);
+      saveData(); // Save data one last time when stopped
+    });
+
+    // Handle speech recognition results
+    recognition.addEventListener('result', (event) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      // Update allResults variable with new transcript
+      // Update the textarea with the latest results
+      resultElement.value = transcript ;
+    });
+
+    // Log when speech recognition ends
+    recognition.addEventListener('end', () => {
+      console.log('Speech recognition ended.');
+    });
+
+    // Handle errors
+    recognition.addEventListener('error', (event) => {
+      console.error('Speech recognition error:', event.error);
+      alert('An error occurred: ' + event.error);
+    });
+
+    // Form submission handler
+    form.addEventListener('submit', (event) => {
+      console.log('Submitting form...');
+      // No additional actions needed here, the form will be submitted with the current textarea value
+      // Clear the interval if form is submitted
+      clearInterval(saveInterval);
+    });
+  </script>
+</body>
+</html>
