@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your Page Title</title>
+  <title>Speech to Text</title>
   <style>
-    /* Basic styles */
     body {
       margin: 0;
       padding: 0;
@@ -14,7 +13,6 @@
 
     .container {
       max-width: 1140px;
-      max-height:50px;
       margin: 0 auto;
       padding: 20px;
     }
@@ -23,10 +21,9 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      align-items: right;  /* Align content vertically */
+      align-items: center;
     }
 
-    /* Header styles */
     header {
       background-color: #fff;
       padding: 10px 0;
@@ -53,13 +50,12 @@
       text-decoration: none;
       color: #000;
     }
-    .navigation a:hover
-    {
-    border-bottom: 1px solid black;
-    transform: scale(0.5);
+
+    .navigation a:hover {
+      border-bottom: 1px solid black;
+      transform: scale(0.5);
     }
 
-    /* User profile circle styles */
     .user-profile {
       display: flex;
       align-items: center;
@@ -72,10 +68,57 @@
       background-color: #3498DB;
       color: white;
       text-align: center;
-      line-height: 50px; /* Center text vertically */
+      line-height: 50px;
       border-radius: 50%;
       margin-right: -130px;
-      font-size: 12px
+      font-size: 12px;
+    }
+
+    .content {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #3498DB;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980B9;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .custom-file-upload {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #3498DB;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .custom-file-upload:hover {
+      background-color: #2980B9;
     }
   </style>
 </head>
@@ -91,9 +134,9 @@
             <ul>
               <li><a href="#">Products</a></li>
               <li><a href="#">For Business</a></li>
-              <li><a href="#">About </a></li>
+              <li><a href="#">About</a></li>
               <li><a href="#">Contact Us</a></li>
-                <li><a href="/user/{{username}}/"><span class="user-circle">{{ username }}</span></a></li>
+              <li><a href="/user/{{username}}/"><span class="user-circle">{{ username }}</span></a></li>
             </ul>
           </nav>
         </div>
@@ -101,5 +144,20 @@
     </div>
   </header>
 
-  </body>
+  <div class="content">
+    <h2>Speech to Text Converter</h2>
+    <form id="speech-form" method="post" enctype="multipart/form-data" action="{% url 'user' username %}">
+      {% csrf_token %}
+      <label for="audio-upload" class="custom-file-upload">🎤 Upload Audio File</label>
+      <input type="file" id="audio-upload" name="audio" />
+      <br><br>
+      <a href="/user/{{username}}/microphone_input/">Recording</a>
+      <button type="submit">Submit</button>
+      <input type="hidden" id="real_time_transcription" name="real_time_transcription" />
+    </form>
+    <input type="text" id="output" placeholder="Your transcribed text will appear here..." readonly />
+    <p>{{text}}</p>
+  </div>
+  
+</body>
 </html>
